@@ -33,20 +33,34 @@ export default {
                 this.cycleCounter++
             }
             this.map.setView(this.viewCoordArr[this.cycleCounter], 15)
-            this.addMarkers()
+            this.addCirclesAndPolyline()
         },
-        addMarkers() {
+        addCirclesAndPolyline() {
+            this.map.eachLayer((layer) => {
+                if(!(layer instanceof L.TileLayer)) {
+                    this.map.removeLayer(layer)
+                }
+            })
             let markerCoordArr = []
             let lat = this.viewCoordArr[this.cycleCounter][0]
             let lon = this.viewCoordArr[this.cycleCounter][1]
-            for(let i = 0; i < 100; i++) {
-                lat += 0.0001
-                lon += 0.0001
+            for(let i = 0; i < 1000; i++) {
+                lat += 0.001
+                lon += 0.001
                 markerCoordArr.push([lat, lon])
             }
-            console.log(markerCoordArr)
+            L.polyline(markerCoordArr, {color: 'blue'})
+                .setStyle({weight: 12})
+                .addTo(this.map)
             markerCoordArr.forEach((coord) => {
-                L.marker(coord).addTo(this.map)
+                L.circle(coord, {
+                    radius: 4,
+                    weight: 1,
+                    color: '#000000',
+                    fillColor: '#EEEEEE',
+                    fillOpacity: 1
+                })
+                    .addTo(this.map)
             })
         }
     },
