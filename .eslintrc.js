@@ -24,6 +24,23 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 'off',
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    // set indent size as 4 spaces
+    indent: [2, 4],
+    // no space between function and argument parentheses
+    'space-before-function-paren': ['error', 'never'],
+    // no space after keywords if, for and while
+    'keyword-spacing': [
+        'error', 
+        { 
+            'overrides': {
+                'if': { 'after': false },
+                'for': { 'after': false },
+                'while': { 'after': false }
+            } 
+        }
+    ],
+    // turn off no-useless-return rule
+    'no-useless-return': 0
   }
 }
